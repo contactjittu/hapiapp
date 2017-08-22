@@ -1,0 +1,25 @@
+{
+  "name": "hapiapp",
+  "version": "1.0.0",
+  "description": "simple app using hapi framework",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/contactjittu/hapiapp.git"
+  },
+  "keywords": [
+    "Hapi"
+  ],
+  "author": "Jitendra Kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/contactjittu/hapiapp/issues"
+  },
+  "homepage": "https://github.com/contactjittu/hapiapp#readme",
+  "dependencies": {
+    "hapi": "^16.5.2"
+  }
+}
