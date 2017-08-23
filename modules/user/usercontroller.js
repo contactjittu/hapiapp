@@ -50,8 +50,12 @@ function login(request, reply) {
   userService.login(payload, function (err, response) {
     if (err) {
       logger.error(err);
-      return reply(err);
+      if (err.name === 'authenticationError') {
+        return reply(Boom.unauthorized('The email or password you entered is incorrect.'));
+      }
+      logger.error(err);
+      return reply(Boom.badImplementation(err));
     }
-    reply(response);
+    reply({ data: response });
   })
 }
