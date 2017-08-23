@@ -8,7 +8,7 @@ npm install
 ```
 
 ## Setup
-Create .env file on root directory
+Create .env file on root directory and add the below code
 ```sh
 SECRET = AIzaSyAQfxPJiounkhOjODEO5ZieffeBv6yft2Q
 PORT = 8000
