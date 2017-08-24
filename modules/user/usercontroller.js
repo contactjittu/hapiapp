@@ -35,6 +35,13 @@ module.exports.register = function(server, options, next) {
       config: {
         handler: resetPassword
       }  
+    },
+    {
+      method: 'GET',
+      path: '/user/search/{keyword}',
+      config: {
+        handler: searchUser
+      }  
     }
   ])
   next();
@@ -108,5 +115,20 @@ function resetPassword(request, reply) {
       error_type: '',
       message: 'An e-mail has been sent with further instructions.'
     });
+  })
+}
+
+function searchUser(request, reply) {
+  let params = request.params;
+  userService.searchUser(params, function (err, response) {
+    if (err) {
+      logger.error(err);
+      return reply(err);
+    }
+    reply({
+      status: 'success',
+      error_type: '',
+      data: response
+    })
   })
 }

@@ -165,3 +165,25 @@ module.exports.resetPassword = function (payload, callback) {
 		return callback();
   });
 }
+
+module.exports.searchUser = function (params, callback) {
+
+	let filter = params.keyword;
+  let regexStr = filter.split(/ /).join("|"); 
+	let projection = {
+		'firstname': 1,
+		'lastname': 1,
+		'email': 1
+	}
+  User.find({
+    "$or": [
+        { "firstname": { "$regex": regexStr, "$options": 'i' } },
+        { "lastname": { "$regex": regexStr, "$options": 'i' }}
+    ]
+	},projection).limit(50).exec(function (err, result) {
+    if (err) {
+			return callback(err);
+    }
+    return callback(null, result);
+  })
+}
