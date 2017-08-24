@@ -67,8 +67,13 @@ npm start
 	
 ###### *Reset password* - You will get token on email address
 	
-	POST: http://localhost:8000/auth/resetpassword/:token
+	POST: http://localhost:8000/auth/resetpassword/{token}
 	
 	{
 	 	"password": 123
 	}
+
+
+### My other project
+
+[Express app] (https://github.com/contactjittu/expressapp)
