@@ -1,5 +1,17 @@
 # hapiapp
-> User Authentication using JWT JSON WebToken in Node.js using Hapijs, Used Joi for user input validation, mongoose for ORM, Winston for error logging, Boom for returning error response object
+
+This app includes:
+1. Signup
+2. Login
+3. Forgot Password
+4. Reset Password
+
+> In this app JWT JSON WebToken is used for User Authentication (Node.js using Hapijs),
+> Joi for user input validation,
+> mongoose for ORM,
+> Nodemailer for sending an email to user,
+> Winston for error logging,
+> Boom for returning error response object.
 
 ## Installation
 
