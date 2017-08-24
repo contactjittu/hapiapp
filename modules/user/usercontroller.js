@@ -21,6 +21,20 @@ module.exports.register = function(server, options, next) {
       config: {
         handler: login
       }  
+    },
+    {
+      method: 'POST',
+      path: '/auth/forgot',
+      config: {
+        handler: forgotPassword
+      }  
+    },
+    {
+      method: 'POST',
+      path: '/auth/resetpassword/{token}',
+      config: {
+        handler: resetPassword
+      }  
     }
   ])
   next();
@@ -35,7 +49,7 @@ function signup(request, reply) {
   let payload = request.payload;
   userService.createUser(payload, function (err, response) {
     if (err) {
-      logger.error(err.stack);
+      logger.error(err);
       if (err.code ===  11000 || err.code === 11001) {
         return reply(Boom.conflict('please provide another email, it already exist'));
       }
@@ -53,9 +67,46 @@ function login(request, reply) {
       if (err.name === 'authenticationError') {
         return reply(Boom.unauthorized('The email or password you entered is incorrect.'));
       }
-      logger.error(err);
       return reply(Boom.badImplementation(err));
     }
     reply({ data: response });
+  })
+}
+
+function forgotPassword(request, reply) {
+  let payload = request.payload;
+  userService.forgotPassword(payload, function (err, response) {
+    if (err) {
+      logger.error(err);
+      if (err.name === 'authenticationError') {
+        return reply(Boom.unauthorized('No account with that email address exists.'));
+      }
+      return reply(Boom.badImplementation(err));
+    }
+    reply({
+      status: 'success',
+      error_type: '',
+      message: 'An e-mail has been sent with further instructions.'
+    });
+  })
+}
+
+function resetPassword(request, reply) {
+  let payload = {};
+  payload.token = request.params.token;
+  payload.password = request.payload.password;
+  userService.resetPassword(payload, function (err, response) {
+    if (err) {
+      logger.error(err);
+      if (err.name === 'authenticationError') {
+        return reply(Boom.unauthorized('Password reset token is invalid or has expired.'));
+      }
+      return reply(Boom.badImplementation(err));
+    }
+    reply({
+      status: 'success',
+      error_type: '',
+      message: 'An e-mail has been sent with further instructions.'
+    });
   })
 }

@@ -8,7 +8,9 @@ const userSchema = new Schema({
   firstname: { type: String },
   lastname: { type: String },
   email: { type: String, required: true, unique: true, lowercase: true },
-  password: { type: String, select: false }
+  password: { type: String, select: false },
+  resetPasswordToken: { type: String },
+  resetPasswordExpires: { type: Date }
 });
 
 userSchema.set('toJSON', {
