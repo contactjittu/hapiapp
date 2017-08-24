@@ -31,16 +31,32 @@ npm start
 	POST: http://localhost:8000/auth/signup
 
 	{
-    "firstname": "Jitendra",
-    "lastname": "Kumar",
-    "email": "contactjittu@gmail.com"
+		"firstname": "Jitendra",
+		"lastname": "Kumar",
+		"email": "contactjittu@gmail.com"
 	}
   
-  ###### *Login User*
+###### *Login User*
 
 	POST: http://localhost:8000/auth/login
 
 	{
-    "email": "contactjittu@gmail.com",
-    "password": "123"
+		"email": "contactjittu@gmail.com",
+		"password": "123"
+	}
+	
+###### *Forgot password*
+
+	POST: http://localhost:8000/auth/forgot
+	
+	{
+		"email":"contactjittu@gmail.com"
+	}
+	
+###### *Reset password* - You will get token on email address
+	
+	POST: http://localhost:8000/auth/resetpassword/:token
+	
+	{
+	 	"password": 123
 	}
