@@ -13,6 +13,14 @@ server.register({
   if (err) {
     throw err;
   }
+  });
+
+server.register({
+  register: require('./modules/auth/authcontroller.js')
+}, function (err) {
+  if (err) {
+    throw err;
+  }
 });
 
 server.start(function (err) {
@@ -23,3 +31,7 @@ server.start(function (err) {
 });
 
 require('./utils/dbconnection');
+
+server.on('response', function (request) {
+    console.log(request.info.remoteAddress + ': ' + request.method.toUpperCase() + ' ' + request.url.path + ' --> ' + request.response.statusCode);
+});

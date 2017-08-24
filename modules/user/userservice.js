@@ -166,7 +166,7 @@ module.exports.resetPassword = function (payload, callback) {
   });
 }
 
-module.exports.searchUser = function (params, callback) {
+module.exports.searchUsers = function (params, callback) {
 
 	let filter = params.keyword;
   let regexStr = filter.split(/ /).join("|"); 
@@ -186,4 +186,43 @@ module.exports.searchUser = function (params, callback) {
     }
     return callback(null, result);
   })
+}
+
+module.exports.allUsers = function (query, callback) {
+
+	let items_perpage = query.itemsperpage || 5;
+	let page = query.page || 1;
+
+	let skip = items_perpage * (page - 1);
+	let limit = parseInt(items_perpage);
+
+	User.find().count(function (err, totalCount) {
+		if (err) {
+			logger.error(err);
+			return callback(err);
+		}
+		else {
+			User.find().skip(skip).limit(limit).exec(function (err, allUsers) {
+				if (err) {
+					logger.error(err);
+					return callback(err);
+				}
+				else {
+					let total = {}
+					total.count = totalCount;
+					if (total.count % items_perpage == 0) {
+						total.pages = (total.count / items_perpage);
+					}
+					else {
+						total.pages = (parseInt(total.count / items_perpage) + 1);
+					}
+					let sendData = {
+						total: total,
+						data: allUsers
+					}
+					return callback(null, sendData)
+				}
+			});
+		}	
+	})
 }
