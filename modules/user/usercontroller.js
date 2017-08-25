@@ -36,7 +36,7 @@ function searchUsers(request, reply) {
   userService.searchUsers(params, function (err, response) {
     if (err) {
       logger.error(err);
-      return reply(err);
+      return reply(Boom.badImplementation(err));
     }
     reply({
       status: 'success',
@@ -51,12 +51,14 @@ function allUsers(request, reply) {
   userService.allUsers(query, function (err, response) {
     if (err) {
       logger.error(err);
-      return reply(err);
+      return reply(Boom.badImplementation(err));
     }
-    reply({
-      status: 'success',
-      error_type: '',
-      data: response
-    })
+    let data = {
+      'status': 'success',
+      'error_type': '',
+      'total': response.total,
+      'data': response.data
+    }
+    reply(data)
   })
 }
