@@ -5,7 +5,7 @@ const config = require('./config/config');
 
 const server = new Hapi.Server();
 
-server.connection({ port: config.PORT });
+server.connection({ port: config.PORT, routes: { cors: true } });
 
 server.register({
   register: require('./modules/user/usercontroller.js')
