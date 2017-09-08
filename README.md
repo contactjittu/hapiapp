@@ -45,7 +45,8 @@ npm start
 	{
 		"firstname": "Jitendra",
 		"lastname": "Kumar",
-		"email": "contactjittu@gmail.com"
+		"email": "contactjittu@gmail.com",
+		"password": "123"
 	}
   
 ###### *Login User*
